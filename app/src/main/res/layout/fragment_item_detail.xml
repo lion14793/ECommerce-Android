@@ -21,7 +21,7 @@
        
     
        <Button
-           android:id="@+id/button1" android:animateLayoutChanges="true"
+           android:id="@+id/oops_button" android:animateLayoutChanges="true"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/add_to_cart" 

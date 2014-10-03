@@ -37,7 +37,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appdynamics.eumagent.runtime.InfoPoint;
 import com.appdynamics.pmdemoapps.android.cart.misc.AsyncTaskListener;
 import com.appdynamics.pmdemoapps.android.cart.misc.Constants;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
@@ -107,6 +106,19 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 						attemptLogin();
 					}
 				});
+		findViewById(R.id.oops_button).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				crashMe();
+				
+			}
+		});
+	}
+	
+	private void crashMe() {
+		String foo = null;
+		boolean broken = foo.equals("badcode");
 	}
 
 	@Override
@@ -121,7 +133,6 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
-    @InfoPoint
 	public void attemptLogin() {
 		if (mAuthTask != null) {
 			return;
