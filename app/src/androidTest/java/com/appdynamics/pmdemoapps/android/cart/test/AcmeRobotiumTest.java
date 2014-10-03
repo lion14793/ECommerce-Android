@@ -47,7 +47,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -56,7 +56,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -65,7 +65,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -74,7 +74,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -83,7 +83,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -92,7 +92,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -101,7 +101,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
@@ -110,7 +110,7 @@ public class AcmeRobotiumTest extends ActivityInstrumentationTestCase2<EntryActi
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity'
 		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity.class));
         //Click on Add to Cart
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button1));
+		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
         //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
         assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
