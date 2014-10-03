@@ -17,5 +17,5 @@ To test if a device is powered on, and send a power key press if not:
 `adb shell dumpsys power | grep "mScreenOn=true" | xargs -0 test -z && adb shell input keyevent 26`
 
 To unlock a device:
-`adb shell input keyevent 82; adb shell input keyevent 4`
+`adb shell input keyevent 82`
 
