@@ -12,3 +12,10 @@ The connectedCheck task will upload the application and test .apk files to all c
 To view connected devices: `adb devices`
 
 To view output, use logcat and filter on ADInstrumentation: `adb logcat ADInstrumentation:D *:S`
+
+To test if a device is powered on, and send a power key press if not: 
+`adb shell dumpsys power | grep "mScreenOn=true" | xargs -0 test -z && adb shell input keyevent 26`
+
+To unlock a device:
+`adb shell input keyevent 82; adb shell input keyevent 4`
+
