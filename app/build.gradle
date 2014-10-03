@@ -2,10 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            //Get Android and other dependencies from Artifactory virtual repo
-            url "http://partnerdemo.artifactoryonline.com/partnerdemo/snapshots"
-        }
-        maven {
             url uri('adeum-maven-repo')
         }
     }
@@ -21,10 +17,6 @@ apply plugin: 'adeum'
 
 repositories {
     mavenCentral()
-    maven {
-        //Get Android and other dependencies from Artifactory virtual repo
-        url "http://partnerdemo.artifactoryonline.com/partnerdemo/snapshots"
-    }
     maven {
         url uri('adeum-maven-repo')
     }

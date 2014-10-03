@@ -11,4 +11,4 @@ The connectedCheck task will upload the application and test .apk files to all c
 
 To view connected devices: `adb devices`
 
-To view output, use logcat and filter on ADInstrumentation
+To view output, use logcat and filter on ADInstrumentation: `adb logcat ADInstrumentation:D *:S`
