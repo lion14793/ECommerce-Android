@@ -27,8 +27,9 @@ public class GetRequestService extends AsyncTask<String, String, String>{
         try {
         	HttpGet get = new HttpGet(uri[0]);
         	get.addHeader("Cookie", GlobalDataProvider.getInstance().getSessionId());
-
+            get.addHeader("appdynamicssnapshotenabled","true");
             Instrumentation.startTimer("GetRequestService");
+
             response = httpclient.execute(get);
             StatusLine statusLine = response.getStatusLine();
             if((statusLine.getStatusCode() == HttpStatus.SC_OK) || (statusLine.getStatusCode() == HttpStatus.SC_NO_CONTENT)){
