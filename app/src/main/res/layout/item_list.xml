@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+     <ImageView android:contentDescription="Item Pic"
+        android:id="@+id/il_ImageView1" android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView 
+            style="?android:attr/textAppearanceLarge" android:id="@+id/il_textView1"
+            android:layout_width="wrap_content"  android:padding="5dp"
+            android:layout_height="wrap_content" 
+        android:ems="10" >
+    </TextView>
+
+
+</LinearLayout>

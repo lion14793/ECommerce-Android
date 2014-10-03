@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.appdynamics</groupId>
+  <artifactId>appdynamics-injector</artifactId>
+  <version>1.0</version>
+  <versioning>
+    <versions>
+      <version>1.0</version>
+    </versions>
+    <lastUpdated>20140923162722</lastUpdated>
+  </versioning>
+</metadata>

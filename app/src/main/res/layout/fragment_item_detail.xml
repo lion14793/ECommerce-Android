@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"         
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"   android:orientation="vertical" android:layout_gravity="center"
+    android:layout_height="wrap_content">
+
+
+		<TextView
+            android:id="@+id/item_detail"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" 
+            android:padding="0dp"
+            android:textIsSelectable="true" />
+
+          <ImageView android:contentDescription="Pic"
+            android:id="@+id/ImageView1" 
+            android:layout_width="250dp" 
+            android:layout_height="300dp"
+            android:padding="8dp" />
+
+       
+    
+       <Button
+           android:id="@+id/button1" android:animateLayoutChanges="true"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/add_to_cart" 
+           android:padding="8dp"
+           android:onClick="addToCartAction"/>
+
+       <TextView
+           android:id="@+id/priceText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+</LinearLayout>

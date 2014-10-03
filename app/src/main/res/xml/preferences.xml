@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/action_settings">
+    <EditTextPreference android:key="pref_rest_uri" android:title="@string/pref_rest_uri" 
+        /><!-- android:defaultValue="http://192.168.31.117:8000/appdynamicspilot/"-->pref_eum_eum_app_key
+    <EditTextPreference android:key="pref_eum_app_key" android:title="@string/pref_eum_app_key"/>
+    <EditTextPreference android:title="@string/pref_eum_collector_url" android:key="pref_eum_collector_url"/> 
+    
+
+</PreferenceScreen>

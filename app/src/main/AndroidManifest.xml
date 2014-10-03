@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.appdynamics.pmdemoapps.android.cart"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:name="com.appdynamics.pmdemoapps.android.cart.CustomApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        <activity
+	        android:name="com.appdynamics.pmdemoapps.android.cart.EntryActivity"
+	        android:launchMode="singleInstance"
+	        android:noHistory="true" >
+	        <intent-filter>
+	            <action android:name="android.intent.action.MAIN" />
+	            <category android:name="android.intent.category.LAUNCHER" />
+	        </intent-filter>
+    	</activity>
+        
+        <activity
+            android:name="com.appdynamics.pmdemoapps.android.cart.ItemListActivity"
+            android:label="@string/app_name"  android:configChanges="orientation|screenSize" >
+
+        </activity>
+        <activity
+            android:name="com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ItemListActivity"  android:configChanges="orientation|screenSize" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ItemListActivity" />
+        </activity>
+        <!-- <activity
+            android:name="com.appdynamics.pmdemoapps.android.cart.CartFragment"
+            android:label="@string/title_activity_cart" android:configChanges="orientation|screenSize" 
+            android:parentActivityName="com.appdynamics.pmdemoapps.android.cart.ItemListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appdynamics.pmdemoapps.android.cart.ItemListActivity" />
+        </activity>  -->
+        <activity
+            android:name="com.appdynamics.pmdemoapps.android.cart.LoginActivity"
+            android:label="@string/title_activity_login" android:configChanges="orientation|screenSize" 
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity android:name="com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity"
+            android:label="@string/title_activity_login" android:configChanges="orientation|screenSize" 
+            android:windowSoftInputMode="adjustResize|stateVisible" >            
+        </activity>
+    </application>
+
+</manifest>
