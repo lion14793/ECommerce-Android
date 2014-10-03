@@ -244,6 +244,7 @@ public class CartFragment extends  SherlockListFragment {
 	public void checkoutCart(){
 		if (currentCartItems!=null && currentCartItems.size()>0){
 			CheckoutTask checkoutReq = new CheckoutTask();
+            Instrumentation.reportMetric("CartSize", currentCartItems.size());
             Instrumentation.startTimer("Checkout");
 			checkoutReq.execute(getEndpoint() + "cart/co");
 			currentCartItemsMap.clear();
