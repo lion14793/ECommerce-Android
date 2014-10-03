@@ -11,6 +11,8 @@ The connectedCheck task will upload the application and test .apk files to all c
 
 To view connected devices: `adb devices`
 
+To send a command to a specific device, use: `adb -s <device> ...`
+
 To view output, use logcat and filter on ADInstrumentation: `adb logcat ADInstrumentation:D *:S`
 
 To test if a device is powered on, and send a power key press if not: 
