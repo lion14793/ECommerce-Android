@@ -21,3 +21,5 @@ To test if a device is powered on, and send a power key press if not:
 To unlock a device:
 `adb shell input keyevent 82`
 
+The [wakeUpAndRun.sh](https://github.com/Appdynamics/ECommerce-Android/blob/master/wakeUpAndRun.sh) shell script will check for all connected devices, wake them up and unlock if necessary before running `gradle connectedCheck`
+

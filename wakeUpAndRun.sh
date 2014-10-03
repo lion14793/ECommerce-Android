@@ -1,8 +1,13 @@
 # Grab the IDs of all the connected devices / emulators
 IDS=($(adb devices | sed '1,1d' | sed '$d' | cut -f 1 | sort))
 NUMIDS=${#IDS[@]}
- 
-# If we got here, there are multiple devices, need to get information then prompt user for which device/emulator to uninstall from
+
+# Check for number of connected devices / emulators
+if [[ 0 -eq "$NUMIDS" ]]; then
+	# No IDs, exit
+	echo "No devices detected"
+	exit 0;
+fi 
  
 # Grab the model name for each device / emulator
 declare -a MODEL_NAMES
