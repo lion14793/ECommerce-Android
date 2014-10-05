@@ -3,6 +3,7 @@ package com.appdynamics.pmdemoapps.android.cart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 
@@ -42,6 +43,7 @@ import com.appdynamics.pmdemoapps.android.cart.tabs.CustomTabListener;
  */
 public class ItemListActivity extends SherlockFragmentActivity implements
 		ItemListFragment.Callbacks, CartFragment.Callbacks {
+    private static final String TAG = ItemListActivity.class.getName();
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -61,9 +63,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 	@Override
 	public void storeCartFragment(CartFragment cartFragment) {
 		this.currentCartFragment = cartFragment;
-		
 	}
-	
 
 	@Override
     @InfoPoint
@@ -82,22 +82,20 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 					R.id.item_list)).setActivateOnItemClick(true);
 		}
 		
-		
 		//Create Tabs
 		final ActionBar actionBar = getSupportActionBar();
 		// Specify that tabs should be displayed in the action bar.
 	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    //actionBar.setDisplayShowTitleEnabled(false);
-
 	    
-	        actionBar.addTab(
-	                actionBar.newTab()
-	                        .setText("List")
-	                        .setTabListener(new CustomTabListener<ItemListFragment>(this, "List", ItemListFragment.class)));
-	        actionBar.addTab(
-	                actionBar.newTab()
-	                        .setText("Cart")
-	                        .setTabListener(new CustomTabListener<CartFragment>(this, "Cart", CartFragment.class)));	
+	    actionBar.addTab(
+	        actionBar.newTab()
+	                 .setText("List")
+	                 .setTabListener(new CustomTabListener<ItemListFragment>(this, "List", ItemListFragment.class)));
+	    actionBar.addTab(
+	        actionBar.newTab()
+	                 .setText("Cart")
+	                 .setTabListener(new CustomTabListener<CartFragment>(this, "Cart", CartFragment.class)));
 	}
 	
 	@Override
@@ -153,8 +151,11 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 	
 	public void deleteFromCartAction(View view){ 
 		ListView listView = currentCartFragment.getListView();
-				
 		SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
+
+        for (int item = 0; item < checkedItems.size(); item ++){
+            Log.d(TAG, checkedItems.keyAt(item) + ":" + checkedItems.valueAt(item));
+        }
 		if(checkedItems!=null){
 			currentCartFragment.removeItemFromCart(checkedItems);
 		}

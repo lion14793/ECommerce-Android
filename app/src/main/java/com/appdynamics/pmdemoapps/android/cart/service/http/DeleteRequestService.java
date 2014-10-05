@@ -11,10 +11,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class DeleteRequestService extends AsyncTask<String, String, String>{
+    private static final String TAG = DeleteRequestService.class.getName();
 
     @Override
     protected String doInBackground(String... uri) {
@@ -22,16 +25,20 @@ public class DeleteRequestService extends AsyncTask<String, String, String>{
         HttpResponse response;
         String responseString = null;
         try {
+            Log.d(TAG, "Call to " + uri[0]);
             response = httpclient.execute(new HttpDelete(uri[0]));
             StatusLine statusLine = response.getStatusLine();
+            Log.d(TAG, "Call to " + uri[0] + " Status Code = " + statusLine.getStatusCode());
             if(statusLine.getStatusCode() == HttpStatus.SC_OK){
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
                 response.getEntity().writeTo(out);
                 out.close();
                 responseString = out.toString();
-            } else{
-                //Closes the connection.
-                response.getEntity().getContent().close();
+                Log.d(TAG, "Call to " + uri[0] + " Response body = " + responseString);
+            }
+            else if (statusLine.getStatusCode() == HttpStatus.SC_NO_CONTENT) {
+            }
+            else {
                 throw new IOException(statusLine.getReasonPhrase());
             }
         } catch (ClientProtocolException e) {
@@ -42,6 +49,7 @@ public class DeleteRequestService extends AsyncTask<String, String, String>{
         catch(Exception e){
 			e.printStackTrace();
 		}
+
         return responseString;
     }
 

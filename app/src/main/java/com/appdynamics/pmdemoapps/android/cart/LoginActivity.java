@@ -1,21 +1,5 @@
 package com.appdynamics.pmdemoapps.android.cart;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -23,10 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -40,7 +22,6 @@ import android.widget.Toast;
 import com.appdynamics.pmdemoapps.android.cart.misc.AsyncTaskListener;
 import com.appdynamics.pmdemoapps.android.cart.misc.Constants;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
-import com.appdynamics.pmdemoapps.android.cart.misc.PreferenceConstants;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserLoginTask;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity;
 
@@ -67,8 +48,8 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	
-	private boolean exceptionOccured;
-	private String exceptionMessage;
+	private boolean exceptionOccurred;
+	//private String exceptionMessage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,12 +87,11 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 						attemptLogin();
 					}
 				});
-		findViewById(R.id.oops_button).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				crashMe();
-				
+		findViewById(R.id.oops_button).setOnClickListener(
+                new View.OnClickListener() {
+					@Override
+                    public void onClick(View v) {
+				        crashMe();
 			}
 		});
 	}
@@ -276,7 +256,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 			navigateToHomePage();
 			return;
 		} else {
-			if(exceptionOccured){
+			if(exceptionOccurred){
 				displayToast(exceptionMessage);
 			}else{
 				mUserView

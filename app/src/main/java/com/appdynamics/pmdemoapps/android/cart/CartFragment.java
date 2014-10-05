@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,8 @@ import com.appdynamics.pmdemoapps.android.cart.model.Item;
 import com.appdynamics.pmdemoapps.android.cart.service.http.DeleteRequestService;
 import com.appdynamics.pmdemoapps.android.cart.service.http.GetRequestService;
 
-public class CartFragment extends  SherlockListFragment { 
+public class CartFragment extends  SherlockListFragment {
+    private static final String TAG = CartFragment.class.getName();
 
 	
 	public static List<Item> currentCartItems = new ArrayList<Item>();
@@ -71,7 +73,6 @@ public class CartFragment extends  SherlockListFragment {
 		}
 	};
 	
-	
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
@@ -88,7 +89,7 @@ public class CartFragment extends  SherlockListFragment {
 				android.R.id.text1, currentCartItems));
 		
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -182,9 +183,17 @@ public class CartFragment extends  SherlockListFragment {
 	public void removeItemFromCart(SparseBooleanArray checkedItems){
 		if (checkedItems!=null && currentCartItems!=null && currentCartItems.size()>0){
 			boolean atleastOneItemChecked = false;
+            for (int item = 0; item < checkedItems.size(); item ++){
+                Log.d(TAG, checkedItems.keyAt(item)+ ":" + checkedItems.valueAt(item));
+            }
+
 			for (int i = 0; i < checkedItems.size(); i++) {
 			    if(checkedItems.valueAt(i)) {
 			    	atleastOneItemChecked = true;
+                    Log.d(TAG, "i is " + i);
+                    Log.d(TAG, "checkItems.size() is " + checkedItems.size());
+                    Log.d(TAG, "currentCartItems.size() is " + currentCartItems.size());
+                    Log.d(TAG, "currentCartItems[" + i + "] = " + currentCartItems.get(i).getTitle());
 			    	new DeleteFromCartService().execute(GlobalDataProvider.getInstance().
 							getRestServiceUrl()+"cart/"+currentCartItems.get(i).getId());
 			    	currentCartItemsMap.remove(currentCartItems.get(i).getId());
@@ -199,16 +208,17 @@ public class CartFragment extends  SherlockListFragment {
 		else{
 			displayToast("There are no items in the cart");
 		}
-		
-		
 	}
 	
 	private void displayToast(CharSequence text){
-		Context context = this.getActivity();
-		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(context, text, duration);
-		toast.show();
-
+        try {
+            Context context = this.getActivity();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        } catch (Exception e) {
+            Log.e(TAG, "displayToast", e);
+        }
 	}
 	
 	public class DeleteFromCartService extends DeleteRequestService{
@@ -242,31 +252,30 @@ public class CartFragment extends  SherlockListFragment {
 
     @InfoPoint
 	public void checkoutCart(){
+        Log.d(TAG, "checkoutCart()");
+        Log.d(TAG, "currentCartItems size = " + currentCartItems.size());
 		if (currentCartItems!=null && currentCartItems.size()>0){
 			CheckoutTask checkoutReq = new CheckoutTask();
             Instrumentation.reportMetric("CartSize", currentCartItems.size());
             Instrumentation.startTimer("Checkout");
+            Log.d(TAG, "calling cart/co service");
 			checkoutReq.execute(getEndpoint() + "cart/co");
 			currentCartItemsMap.clear();
 			convertItemsMaptoList();
 		} else {
 			displayToast("There are no items in the cart");
 		}
-		
-		
-		
-		
 	}
 
 public class CheckoutTask extends GetRequestService {
 	protected void onPostExecute(String result) {
+        Log.d(TAG, "checkoutTask completed");
         Instrumentation.stopTimer("Checkout");
         displayToast(result);
 	}
 	
 }
-	
-	
+
 public class CartLoginTask extends AsyncTask<Void, Void, String> {
 		
 		private String error = "";
@@ -311,7 +320,6 @@ public class CartLoginTask extends AsyncTask<Void, Void, String> {
 			
 			System.out.println(success);
 		}
-
 	}
 
 
@@ -319,6 +327,5 @@ public class CartLoginTask extends AsyncTask<Void, Void, String> {
 		return GlobalDataProvider.getInstance(). getRestServiceUrl();
 		
 	}
-	
-	
+
 }

@@ -16,8 +16,10 @@ import com.appdynamics.eumagent.runtime.Instrumentation;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class GetRequestService extends AsyncTask<String, String, String>{
+    private static final String TAG = GetRequestService.class.getName();
 
     @Override
     protected String doInBackground(String... uri) {
@@ -25,19 +27,26 @@ public class GetRequestService extends AsyncTask<String, String, String>{
         HttpResponse response;
         String responseString = null;
         try {
-        	HttpGet get = new HttpGet(uri[0]);
+            Log.d(TAG, "Call to " + uri[0]);
+            HttpGet get = new HttpGet(uri[0]);
         	get.addHeader("Cookie", GlobalDataProvider.getInstance().getSessionId());
             get.addHeader("appdynamicssnapshotenabled","true");
             Instrumentation.startTimer("GetRequestService");
 
             response = httpclient.execute(get);
             StatusLine statusLine = response.getStatusLine();
-            if((statusLine.getStatusCode() == HttpStatus.SC_OK) || (statusLine.getStatusCode() == HttpStatus.SC_NO_CONTENT)){
+            Log.d(TAG, "Call to " + uri[0] + " Status Code = " + statusLine.getStatusCode());
+            if((statusLine.getStatusCode() == HttpStatus.SC_OK)) {
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
                 response.getEntity().writeTo(out);
                 out.close();
                 responseString = out.toString();
-            } else{
+                Log.d(TAG, "Call to " + uri[0] + " Response body = " + responseString);
+            }
+            else if (statusLine.getStatusCode() == HttpStatus.SC_NO_CONTENT) {
+                response.getEntity().getContent().close();
+            }
+            else {
                 //Closes the connection.
                 response.getEntity().getContent().close();
                 throw new IOException(statusLine.getReasonPhrase());
@@ -50,6 +59,7 @@ public class GetRequestService extends AsyncTask<String, String, String>{
         catch(Exception e){
 			e.printStackTrace();
 		}
+
         return responseString;
     }
 
