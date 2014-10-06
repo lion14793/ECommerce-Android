@@ -27,8 +27,10 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -45,7 +47,6 @@ import com.appdynamics.pmdemoapps.android.cart.service.http.GetRequestService;
 public class CartFragment extends  SherlockListFragment {
     private static final String TAG = CartFragment.class.getName();
 
-	
 	public static List<Item> currentCartItems = new ArrayList<Item>();
 	public static Map<Long,Item> currentCartItemsMap = new ConcurrentHashMap<Long,Item>();
 	
@@ -87,14 +88,12 @@ public class CartFragment extends  SherlockListFragment {
 		setListAdapter(new ArrayAdapter<Item>(getActivity(),
 				android.R.layout.simple_list_item_multiple_choice,
 				android.R.id.text1, currentCartItems));
-		
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_cart,
-				container, false);
+		View rootView = inflater.inflate(R.layout.fragment_cart,container, false);
 		return rootView;
 	}
 	
@@ -102,9 +101,9 @@ public class CartFragment extends  SherlockListFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		ListView lview=getListView();
-	    lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);        
-	    lview.setTextFilterEnabled(true);
+		ListView listView = getListView();
+	    listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+	    listView.setTextFilterEnabled(true);
 	}
 	
 	@Override
@@ -129,90 +128,104 @@ public class CartFragment extends  SherlockListFragment {
 		mCallbacks = sDummyCallbacks;
 	}
 	
-	
-	/*@Override
+    // We keep track of checked items ourselves
+    // Android bug: ListView base adapter doesn't report correctly
+    private SparseBooleanArray myCheckedItems = new SparseBooleanArray();
+
+    // Listen for click events (check/uncheck) on the CartFragment ListView
+    // Update myCheckedItems as items checked/unchecked
+	@Override
 	public void onListItemClick( ListView l, View v, int position, long id)
 	{
-	  CheckedTextView textView = (CheckedTextView)v;
-	  textView.setChecked(!textView.isChecked());
-	}*/
+        // Update list of checked items
+        int index = myCheckedItems.indexOfKey(position);
 
-	
-	//When called in the context of the same fragment, update the underlying data
+        // If item already checked, delete entry; otherwise add it
+        if (index >= 0)
+            myCheckedItems.delete(position);
+        else
+            myCheckedItems.append(position, true);
+	}
+
+	// When called in the context of the same fragment, update the underlying data
 	public void convertItemsMaptoList(){
 		convertItemsMaptoListStatic();
 		((BaseAdapter)this.getListAdapter()).notifyDataSetChanged();
-		
 	}
 	
-	//Static Method for calls by non parent activities and other fragments. 
-	//Low overhead method. Avoid creating unnecessary items
+	// Static Method for calls by non parent activities and other fragments.
+	// Low overhead method. Avoid creating unnecessary items
 	public static void convertItemsMaptoListStatic(){
 		if (currentCartItemsMap!=null){
 			currentCartItems.clear();
 			currentCartItems.addAll(currentCartItemsMap.values());
 		}
 	}
-	
-/*	public void removeItemFromCart(Item item){
-		if(CartFragment.currentCartItemsMap.containsKey(item.getId())){
-			CartFragment.currentCartItems.remove(item);
-			CartFragment.convertItemsMaptoList();
-			
-			new DeleteFromCartService().execute(GlobalDataProvider.getInstance().
-					getRestServiceUrl()+"cart/"+item.getId());
-		}
-		
-	}
-	
-	public void removeItemFromCart(List<Item> itemList){
-		for (Item item:itemList){
-		
-			if(CartFragment.currentCartItemsMap.containsKey(item.getId())){
-				CartFragment.currentCartItems.remove(item);
-				
-				new DeleteFromCartService().execute(GlobalDataProvider.getInstance().
-						getRestServiceUrl()+"cart/"+item.getId());
-			}
-		}
-		CartFragment.convertItemsMaptoList();
-		
-	}*/
 
+    // REST service to delete from cart on server
+    public class DeleteFromCartService extends DeleteRequestService {
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+        }
+    }
+
+    // Remove all checked items and force remaining items to unchecked
     @InfoPoint
-	public void removeItemFromCart(SparseBooleanArray checkedItems){
-		if (checkedItems!=null && currentCartItems!=null && currentCartItems.size()>0){
-			boolean atleastOneItemChecked = false;
-            for (int item = 0; item < checkedItems.size(); item ++){
-                Log.d(TAG, checkedItems.keyAt(item)+ ":" + checkedItems.valueAt(item));
+    public void removeItemFromCart(){
+        removeCheckedItems();
+        uncheckAll();
+    }
+
+    // Remove any checked items from the cart
+    public void removeCheckedItems() {
+        try {
+            // Get number of items to delete
+            int numItems = myCheckedItems.size();
+            Log.d(TAG, "Deleting " + numItems + " items out of " + currentCartItems.size());
+
+            // Delete checked items from cart
+            for (int i = 0; i < numItems; i++) {
+                if (myCheckedItems.valueAt(i)) {
+                    int key = myCheckedItems.keyAt(i);
+                    Log.d(TAG, "Removing Item: " + currentCartItems.get(key).getTitle());
+                    new DeleteFromCartService()
+                            .execute(GlobalDataProvider
+                            .getInstance()
+                            .getRestServiceUrl()
+                            + "cart/" + currentCartItems.get(key).getId());
+                    currentCartItemsMap.remove(currentCartItems.get(key).getId());
+                }
             }
 
-			for (int i = 0; i < checkedItems.size(); i++) {
-			    if(checkedItems.valueAt(i)) {
-			    	atleastOneItemChecked = true;
-                    Log.d(TAG, "i is " + i);
-                    Log.d(TAG, "checkItems.size() is " + checkedItems.size());
-                    Log.d(TAG, "currentCartItems.size() is " + currentCartItems.size());
-                    Log.d(TAG, "currentCartItems[" + i + "] = " + currentCartItems.get(i).getTitle());
-			    	new DeleteFromCartService().execute(GlobalDataProvider.getInstance().
-							getRestServiceUrl()+"cart/"+currentCartItems.get(i).getId());
-			    	currentCartItemsMap.remove(currentCartItems.get(i).getId());
-			     }
-			}
-			if(atleastOneItemChecked){
-				convertItemsMaptoList();//Refresh the list
-			}else{
-				displayToast("No item was selected for deletion");
-			}
-		}
-		else{
-			displayToast("There are no items in the cart");
-		}
-	}
-	
+            // Update list of checked items
+            for (int j = 0; j < numItems; j++) {
+                int key = myCheckedItems.keyAt(j);
+                boolean value = myCheckedItems.valueAt(j);
+                myCheckedItems.delete(key);
+            }
+
+            // Update base adapter and list view
+            convertItemsMaptoList();
+
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in removeCheckedItems(): ", e);
+        }
+    }
+
+    // Set all checkboxes to unchecked
+    public void uncheckAll() {
+        ListView lv = getListView();
+        int size = getListAdapter().getCount();
+        for(int i = 0; i<=size; i++) {
+            lv.setItemChecked(i, false);
+        }
+    }
+
+    // TODO: Replace with Dialog/Intent. This will NPE if the user switches fragments
 	private void displayToast(CharSequence text){
         try {
-            Context context = this.getActivity();
+            Context context = this.getSherlockActivity();
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
@@ -220,45 +233,14 @@ public class CartFragment extends  SherlockListFragment {
             Log.e(TAG, "displayToast", e);
         }
 	}
-	
-	public class DeleteFromCartService extends DeleteRequestService{
-		
-		@Override
-	    protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-	        //Process the response and populate the list items
-	        /*ItemParser parser = new ItemParser();
-	        try {
-				List<Item> list = parser.parse(result);
-				if (list == null){ 
-					//TODO - Message - Not able to connect
-					list = new ArrayList<Item>();
-				}
-				if (list!=null && getListAdapter() == null){
-					setListAdapter(new ItemListAdapter(parentActivity, list));
-				}
-				
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-	        
-		}
-		
-	}
 
     @InfoPoint
 	public void checkoutCart(){
-        Log.d(TAG, "checkoutCart()");
-        Log.d(TAG, "currentCartItems size = " + currentCartItems.size());
+        Log.d(TAG, "checkoutCart(): currentCartItems size = " + currentCartItems.size());
 		if (currentCartItems!=null && currentCartItems.size()>0){
 			CheckoutTask checkoutReq = new CheckoutTask();
             Instrumentation.reportMetric("CartSize", currentCartItems.size());
             Instrumentation.startTimer("Checkout");
-            Log.d(TAG, "calling cart/co service");
 			checkoutReq.execute(getEndpoint() + "cart/co");
 			currentCartItemsMap.clear();
 			convertItemsMaptoList();
@@ -267,65 +249,17 @@ public class CartFragment extends  SherlockListFragment {
 		}
 	}
 
-public class CheckoutTask extends GetRequestService {
-	protected void onPostExecute(String result) {
-        Log.d(TAG, "checkoutTask completed");
-        Instrumentation.stopTimer("Checkout");
-        displayToast(result);
-	}
+    public class CheckoutTask extends GetRequestService {
+	    protected void onPostExecute(String result) {
+            Instrumentation.stopTimer("Checkout");
+            Log.d(TAG, "CheckoutTask: result = " + result);
+            displayToast(result);
+	    }
 	
-}
-
-public class CartLoginTask extends AsyncTask<Void, Void, String> {
-		
-		private String error = "";
-		
-		@Override
-		protected String doInBackground(Void... params) {
-
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(getEndpoint()+"cart/checkout");
-			
-			 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			 for(Item item:currentCartItems){
-			    nameValuePairs.add(new BasicNameValuePair("itemId", item.getId().toString()));
-			    nameValuePairs.add(new BasicNameValuePair("quantity", "1"));
-			 }
-			 nameValuePairs.add(new BasicNameValuePair("emailId", "harsha.hegde@appdynamics.com"));
-			 
-			    try {
-					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				
-					HttpResponse response = httpclient.execute(httppost);
-					if(response!=null && response.getEntity()!=null){
-						String respStr = EntityUtils.toString(response.getEntity());
-						return respStr;
-					}
-					
-				} catch (UnsupportedEncodingException e1) {
-					e1.printStackTrace(); 
-				}
-			    catch (ClientProtocolException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			
-			return "";
-		}
-
-		@Override
-		protected void onPostExecute(String success) {
-			
-			System.out.println(success);
-		}
-	}
-
+    }
 
 	public String getEndpoint(){
 		return GlobalDataProvider.getInstance(). getRestServiceUrl();
-		
 	}
 
 }

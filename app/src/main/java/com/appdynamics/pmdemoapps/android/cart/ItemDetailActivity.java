@@ -79,8 +79,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
 				//
 				// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 				//
-				NavUtils.navigateUpTo(this,
-						new Intent(this, ItemListActivity.class));
+				NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
 				return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
@@ -92,14 +91,12 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
 		startActivity(detailIntent);
 		
 	}
-	
-	
+
 	public void addToCartAction(View view){
 		addItemToCart(ItemListActivity.selectedItem);
-		//Go back to list page
-		NavUtils.navigateUpTo(this,
-				new Intent(this, ItemListActivity.class));
-		
+
+	    //Go back to list page
+		NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
 	}
 	
 	public void addItemToCart(Item item){
@@ -109,17 +106,12 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
 		}
 		CartFragment.currentCartItemsMap.put(item.getId(), item);
 		
-//		for(Long i=0L;i<12L;i++){
-//			//CartFragment.currentCartItemsMap.put(i, item);
-//		}
-		
 		CartFragment.convertItemsMaptoListStatic();
 		
-		new AddToCartService().execute(GlobalDataProvider.getInstance().
-				getRestServiceUrl()+"cart/"+item.getId());
+		new AddToCartService().execute(GlobalDataProvider
+                              .getInstance()
+                              .getRestServiceUrl()+"cart/"+item.getId());
 	}
-	
-	
 	
 	public class AddToCartService extends GetRequestService{
 		

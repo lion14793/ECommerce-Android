@@ -7,8 +7,11 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -18,6 +21,8 @@ import com.appdynamics.eumagent.runtime.InfoPoint;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity;
 import com.appdynamics.pmdemoapps.android.cart.model.Item;
 import com.appdynamics.pmdemoapps.android.cart.tabs.CustomTabListener;
+
+import java.util.ArrayList;
 
 /**
  * Unfortunately the two pane mode does not work because we are using 
@@ -120,7 +125,6 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 	private void openSettingsPage() {
 		Intent detailIntent = new Intent(this, UserPrefActivity.class);
 		startActivity(detailIntent);
-		
 	}
 
 	/**
@@ -148,19 +152,13 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 			startActivity(detailIntent);
 		}
 	}
-	
-	public void deleteFromCartAction(View view){ 
-		ListView listView = currentCartFragment.getListView();
-		SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
 
-        for (int item = 0; item < checkedItems.size(); item ++){
-            Log.d(TAG, checkedItems.keyAt(item) + ":" + checkedItems.valueAt(item));
-        }
-		if(checkedItems!=null){
-			currentCartFragment.removeItemFromCart(checkedItems);
-		}
+    // Delete items and update cart
+	public void deleteFromCartAction(View view){
+			currentCartFragment.removeItemFromCart();
 	}
-	
+
+    // Checkout and update cart
 	public void checkoutCartAction(View view){ 
 			currentCartFragment.checkoutCart();
 	}

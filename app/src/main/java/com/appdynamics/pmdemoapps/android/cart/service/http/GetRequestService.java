@@ -44,11 +44,9 @@ public class GetRequestService extends AsyncTask<String, String, String>{
                 Log.d(TAG, "Call to " + uri[0] + " Response body = " + responseString);
             }
             else if (statusLine.getStatusCode() == HttpStatus.SC_NO_CONTENT) {
-                response.getEntity().getContent().close();
             }
             else {
                 //Closes the connection.
-                response.getEntity().getContent().close();
                 throw new IOException(statusLine.getReasonPhrase());
             }
         } catch (ClientProtocolException e) {

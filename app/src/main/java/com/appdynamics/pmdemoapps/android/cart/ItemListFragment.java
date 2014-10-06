@@ -63,7 +63,7 @@ public class ItemListFragment extends SherlockListFragment {
 	 */
 	public static Item selectedItem = null;
 	
-	//The activty class for this fragment. For use for inner classes
+	//The activity class for this fragment. For use for inner classes
 	private Activity parentActivity;
 
 	/**
@@ -111,8 +111,6 @@ public class ItemListFragment extends SherlockListFragment {
 
 		return rootView;
 	}
-	
-	
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -193,8 +191,6 @@ public class ItemListFragment extends SherlockListFragment {
 		return GlobalDataProvider.getInstance().getRestServiceUrl();		
 	}
 	
-	
-	
 	public class ItemRequestService extends GetRequestService{
 		
 		@Override
@@ -223,7 +219,5 @@ public class ItemListFragment extends SherlockListFragment {
 		}
 		
 	}
-	
-	
-	
+
 }
