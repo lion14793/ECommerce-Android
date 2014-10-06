@@ -118,30 +118,8 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
 		@Override
 	    protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-	        //Process the response and populate the list items
-	        /*ItemParser parser = new ItemParser();
-	        try {
-				List<Item> list = parser.parse(result);
-				if (list == null){ 
-					//TODO - Message - Not able to connect
-					list = new ArrayList<Item>();
-				}
-				if (list!=null && getListAdapter() == null){
-					setListAdapter(new ItemListAdapter(parentActivity, list));
-				}
-				
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-	        
 		}
 		
 	}
-	
-	
 	
 }

@@ -162,6 +162,4 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 	public void checkoutCartAction(View view){ 
 			currentCartFragment.checkoutCart();
 	}
-
-	
 }

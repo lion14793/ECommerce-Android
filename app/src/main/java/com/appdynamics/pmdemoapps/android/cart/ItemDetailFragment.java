@@ -70,14 +70,15 @@ public class ItemDetailFragment extends Fragment {
 			ImageView imageView = (ImageView) rootView.findViewById(R.id.ImageView1);
 
 			
-			DisplayImageOptions options = new DisplayImageOptions.Builder()
-	        .delayBeforeLoading(0)//Good way to simulate slow performance
-	        .cacheInMemory(true) // default
-	        .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
-	        .bitmapConfig(Bitmap.Config.ARGB_8888) // default
-	        .displayer(new SimpleBitmapDisplayer()) // default
-	        .handler(new Handler()) // default
-	        .build();
+			DisplayImageOptions options =
+                    new DisplayImageOptions.Builder()
+	                                       .delayBeforeLoading(0)//Good way to simulate slow performance
+	                                       .cacheInMemory(true) // default
+	                                       .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+	                                       .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+	                                       .displayer(new SimpleBitmapDisplayer()) // default
+	                                       .handler(new Handler()) // default
+	                                       .build();
 			ImageLoader.getInstance().displayImage(url, imageView,options) ;
 			TextView priceView = (TextView) rootView.findViewById(R.id.priceText);
 			NumberFormat formatter = NumberFormat.getCurrencyInstance();
