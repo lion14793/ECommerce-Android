@@ -30,8 +30,8 @@
         <activity
             android:name="com.appdynamics.pmdemoapps.android.cart.ItemListActivity"
             android:label="@string/app_name"  android:configChanges="orientation|screenSize" >
-
         </activity>
+
         <activity
             android:name="com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity"
             android:label="@string/title_item_detail"
@@ -40,23 +40,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ItemListActivity" />
         </activity>
-        <!-- <activity
-            android:name="com.appdynamics.pmdemoapps.android.cart.CartFragment"
-            android:label="@string/title_activity_cart" android:configChanges="orientation|screenSize" 
-            android:parentActivityName="com.appdynamics.pmdemoapps.android.cart.ItemListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.appdynamics.pmdemoapps.android.cart.ItemListActivity" />
-        </activity>  -->
+
         <activity
             android:name="com.appdynamics.pmdemoapps.android.cart.LoginActivity"
             android:label="@string/title_activity_login" android:configChanges="orientation|screenSize" 
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+
         <activity android:name="com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity"
             android:label="@string/title_activity_login" android:configChanges="orientation|screenSize" 
             android:windowSoftInputMode="adjustResize|stateVisible" >            
         </activity>
+
     </application>
 
 </manifest>
