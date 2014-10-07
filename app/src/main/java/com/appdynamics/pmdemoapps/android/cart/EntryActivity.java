@@ -58,7 +58,6 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
 	private void showBookList() {
 		Intent loginIntent = new Intent(this, ItemListActivity.class);
 		   startActivity(loginIntent);
-	} 
-	
+	}
 
 }

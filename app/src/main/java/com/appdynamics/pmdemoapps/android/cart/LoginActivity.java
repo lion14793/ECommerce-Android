@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appdynamics.eumagent.runtime.Instrumentation;
 import com.appdynamics.pmdemoapps.android.cart.misc.AsyncTaskListener;
 import com.appdynamics.pmdemoapps.android.cart.misc.Constants;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
@@ -118,6 +119,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 			return;
 		}
 
+        Instrumentation.startTimer("Login");
 		// Reset errors.
 		mUserView.setError(null);
 		mPasswordView.setError(null);
@@ -244,6 +246,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 			String exceptionMessage) {
 		mAuthTask = null;
 		showProgress(false);
+        Instrumentation.stopTimer("Login");
 		if (success) {
 			//Save the username/password in settings
 			SharedPreferences settings = getSharedPreferences(Constants.COMMON_PREFS_FILE_NAME, 0);

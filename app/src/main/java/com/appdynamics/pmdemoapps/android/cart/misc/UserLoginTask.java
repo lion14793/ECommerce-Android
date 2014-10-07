@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import com.appdynamics.eumagent.runtime.Instrumentation;
 import com.appdynamics.pmdemoapps.android.cart.LoginActivity;
 import com.appdynamics.pmdemoapps.android.cart.R;
 import com.appdynamics.pmdemoapps.android.cart.R.string;
@@ -61,6 +62,7 @@ public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 	
 	@Override
 	protected Boolean doInBackground(String... params) {
+        Instrumentation.startTimer("UserLoginTask");
 
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(GlobalDataProvider.getInstance().getRestServiceUrl() +"user/login");
@@ -110,11 +112,10 @@ public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 				exceptionOccured = true;
 				exceptionMessage = e.getLocalizedMessage();
 				e.printStackTrace();
-			}		
+			} finally {
+                Instrumentation.stopTimer("UserLoginTask");
+            }
 		return false;
 	}
-
-
-
 
 }

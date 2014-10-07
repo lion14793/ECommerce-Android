@@ -167,6 +167,7 @@ public class CartFragment extends  SherlockListFragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Instrumentation.stopTimer("DeleteFromCartService");
         }
     }
 
@@ -178,6 +179,7 @@ public class CartFragment extends  SherlockListFragment {
     }
 
     // Remove any checked items from the cart
+    @InfoPoint
     public void removeCheckedItems() {
         try {
             // Get number of items to delete
@@ -189,6 +191,7 @@ public class CartFragment extends  SherlockListFragment {
                 if (myCheckedItems.valueAt(i)) {
                     int key = myCheckedItems.keyAt(i);
                     Log.d(TAG, "Removing Item: " + currentCartItems.get(key).getTitle());
+                    Instrumentation.startTimer("DeleteFromCartService");
                     new DeleteFromCartService()
                             .execute(GlobalDataProvider
                             .getInstance()
@@ -234,7 +237,6 @@ public class CartFragment extends  SherlockListFragment {
         }
 	}
 
-    @InfoPoint
 	public void checkoutCart(){
         Log.d(TAG, "checkoutCart(): currentCartItems size = " + currentCartItems.size());
 		if (currentCartItems!=null && currentCartItems.size()>0){
