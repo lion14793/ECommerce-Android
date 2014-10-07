@@ -8,7 +8,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:0.12.+'
         classpath 'com.appdynamics:appdynamics-gradle-plugin:2.0'
-
     }
 }
 
@@ -47,7 +46,7 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 }
 
-dependencies{
+dependencies {
     androidTestCompile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
