@@ -1,8 +1,23 @@
 ECommerce-Android
 =================
+E-Commerce example for Android (Gradle build with Robotium). The Robotium tests can be used to run repeated randomized simulations of an e-commerce shopping cart checkout scenario.
 
-E-Commerce example for Android (Gradle build with Robotium)
+Pre-Requisites
+--------------
+1. Android Studio: download latest version from [here](https://developer.android.com/sdk/installing/studio.html)
+2. Gradle: download latest version (must be 2.0+) from [here](http://www.gradle.org/downloads) and set PATH to include Gradle bin dir
+3. Android SDK: Install at least the following:
+    - Latest Android Tools, Platform-Tools and Build-Tools
+    - SDK Platforms for 4.2.2 (Android 17), 4.3.1 (Android 18) and 4.4.2 (Android 19)
+    - Extras: Android Support Repository, Android Support Library and Google Repository
 
+Importing the Project
+---------------------
+1. Clone a local copy of this project with `git clone https://github.com/Appdynamics/ECommerce-Android`
+2. Open Android Studio and Import Project (select app/build.gradle)
+
+Running the Robotium Tests
+--------------------------
 To install and run manually: `gradle clean installDebug`
 
 To install and run automated Robotium tests: `gradle clean connectedCheck`
