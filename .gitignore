@@ -1,0 +1,42 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# Keyfiles etc
+src/main/java/com/cloudbees/gasp/gcm/GCMProjectKey.java
+src/main/java/com/cloudbees/gasp/location/GooglePlacesKey.java
+src/main/assets/api_key.txt
+
+# Android Studio project files
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Gradle
+build/
+.gradle/
+
+# Android Lint
+lint-results.xml
+
