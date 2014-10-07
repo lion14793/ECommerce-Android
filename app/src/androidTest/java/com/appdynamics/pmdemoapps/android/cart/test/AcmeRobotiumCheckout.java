@@ -4,6 +4,8 @@ import com.appdynamics.pmdemoapps.android.cart.EntryActivity;
 import com.robotium.solo.*;
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -25,37 +27,48 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
         solo.finishOpenedActivities();
         super.tearDown();
   	}
-  
-	public void testRun() {
-        //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.EntryActivity'
-		solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.EntryActivity.class, 2000);
-        //Set default small timeout to 101011 milliseconds
-		Timeout.setSmallTimeout(101011);
-        //Enter the text: 'test'
-		solo.clearEditText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.username));
-		solo.enterText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.username), "test");
-        //Click on Empty Text View
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.password));
-        //Enter the text: 'appdynamics'
-		solo.clearEditText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.password));
-		solo.enterText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.password), "appdynamics");
-        //Click on Sign in or register
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.sign_in_button));
-        //Wait for activity: 'com.appdynamics.pmdemoapps.android.cart.ItemListActivity'
-		assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
+
+    public void testRun() {
+        doLogin();
+
+        assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.ItemListActivity.class));
 
         int noOfBooks = randInt(1,8);
-        for (int i = 1; i < noOfBooks; i++) {
-            doAddBook(i);
+        ArrayList<Integer> shuffled = shuffleItems(0,noOfBooks);
+        for (int i = 0; i < noOfBooks; i++) {
+            doAddBook(shuffled.get(i));
         }
 
-        //Click on Cart
-		solo.clickOnText(java.util.regex.Pattern.quote("Cart"));
-        //Click on Checkout
-		solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
-        //Click on List
-		solo.clickOnText(java.util.regex.Pattern.quote("List"));
-	}
+        doCheckout();
+    }
+
+    private ArrayList<Integer> shuffleItems(int min, int max) {
+        ArrayList<Integer> elements = new ArrayList<Integer>();
+        for (int i = min; i < max; i++) {
+            elements.add(i, i);
+        }
+        Collections.shuffle(elements);
+        return elements;
+    }
+
+    private void doLogin () {
+        solo.waitForActivity(com.appdynamics.pmdemoapps.android.cart.EntryActivity.class, 2000);
+        Timeout.setSmallTimeout(101011);
+        solo.clearEditText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.username));
+        solo.enterText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.username), "test");
+
+        solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.password));
+        solo.clearEditText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.password));
+        solo.enterText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.password), "appdynamics");
+
+        solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.sign_in_button));
+    }
+
+    private void doCheckout() {
+        solo.clickOnText(java.util.regex.Pattern.quote("Cart"));
+        solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.cart.R.id.button2));
+        solo.clickOnText(java.util.regex.Pattern.quote("List"));
+    }
 
     private void doAddBook (int book) {
         solo.clickInList(book, 0);
