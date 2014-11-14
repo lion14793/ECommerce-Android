@@ -10,12 +10,19 @@ import com.appdynamics.pmdemoapps.android.cart.misc.AsyncTaskListener;
 import com.appdynamics.pmdemoapps.android.cart.misc.Constants;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserLoginTask;
 
+import com.appdynamics.eumagent.runtime.Instrumentation;
+
 public class EntryActivity extends  Activity implements AsyncTaskListener {
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) 
-	    { 
-	        super.onCreate(savedInstanceState); 
+	    {
+            super.onCreate(savedInstanceState);
+
+            Instrumentation.start("EUM-AAB-AUB",
+                    getApplicationContext(),
+                    "http://pm-demo.appdynamics.com",
+                    true);
 
 	        
 	      //See if the user credentials are already stored in the system

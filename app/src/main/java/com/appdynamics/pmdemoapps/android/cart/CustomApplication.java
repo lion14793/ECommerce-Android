@@ -3,7 +3,6 @@ package com.appdynamics.pmdemoapps.android.cart;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
@@ -12,7 +11,6 @@ import com.appdynamics.eumagent.runtime.Instrumentation;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
 import com.appdynamics.pmdemoapps.android.cart.misc.PreferenceConstants;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -35,47 +33,45 @@ public class CustomApplication extends Application {
 	@Override
     @InfoPoint
     public void onCreate() {
-        super.onCreate();        
-       setGlobalData();
-       Instrumentation.start(GlobalDataProvider.getInstance().getEumAppKey(), getApplicationContext(),GlobalDataProvider.getInstance().getCollectorUrl(),true);
-    
-        
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-        .resetViewBeforeLoading(false)  // default
-        .delayBeforeLoading(0)//Good way to simulate slow performance
-        .cacheInMemory(true) // default
-        //.cacheOnDisc(false) // default
-        .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
-        .bitmapConfig(Bitmap.Config.ARGB_8888) // default
-        .displayer(new SimpleBitmapDisplayer()) // default
-        .handler(new Handler()) // default
-        .build();
+        super.onCreate();
+        setGlobalData();
+        Instrumentation.start(GlobalDataProvider.getInstance().getEumAppKey(),
+                getApplicationContext(),
+                GlobalDataProvider.getInstance().getCollectorUrl(),
+                true);
+
+
+        DisplayImageOptions options =
+                new DisplayImageOptions.Builder()
+                        .resetViewBeforeLoading(false)  // default
+                        .delayBeforeLoading(0)//Good way to simulate slow performance
+                        .cacheInMemory(true) // default
+                        .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+                        .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                        .displayer(new SimpleBitmapDisplayer()) // default
+                        .handler(new Handler()) // default
+                        .build();
 
 
         // Create global configuration and initialize ImageLoader with this configuration
         //ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext()).build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-        .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
-        //.discCacheExtraOptions(480, 800, CompressFormat.JPEG, 75, null).threadPoolSize(6) // default
-        .threadPriority(Thread.NORM_PRIORITY - 1) // default
-        .tasksProcessingOrder(QueueProcessingType.FIFO) // default
-        .denyCacheImageMultipleSizesInMemory()
-        .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-        .memoryCacheSize(2 * 1024 * 1024)
-        .memoryCacheSizePercentage(13) // default
-        //.discCache(new UnlimitedDiscCache(cacheDir)) // default
-        //.discCacheSize(50 * 1024 * 1024)
-        //.discCacheFileCount(100)
-        //.discCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-        .imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
-        //.imageDecoder(new BaseImageDecoder()) // default
-        .defaultDisplayImageOptions(options) // default
-        .writeDebugLogs().build();
+        ImageLoaderConfiguration config =
+                new ImageLoaderConfiguration.Builder(getApplicationContext())
+                        .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
+                        .threadPriority(Thread.NORM_PRIORITY - 1) // default
+                        .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+                        .denyCacheImageMultipleSizesInMemory()
+                        .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                        .memoryCacheSize(2 * 1024 * 1024)
+                        .memoryCacheSizePercentage(13) // default
+                        .imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
+                        .defaultDisplayImageOptions(options) // default
+                        .writeDebugLogs().build();
         ImageLoader.getInstance().init(config);
     }
-	
-	public void setGlobalData(){
-		setEndpoints();
+
+    public void setGlobalData() {
+        setEndpoints();
 	}
 	
 	public void setEndpoints(){
