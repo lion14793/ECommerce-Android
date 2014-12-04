@@ -1,10 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
-
-        maven {
-            url uri('adeum-maven-repo')
-        }
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.14.1'
@@ -17,20 +14,17 @@ apply plugin: 'adeum'
 
 repositories {
     mavenCentral()
-
-    maven {
-        url uri('adeum-maven-repo')
-    }
+    mavenLocal()
 }
 
 android {
-    compileSdkVersion 17
+    compileSdkVersion 21
     buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "com.appdynamics.pmdemoapps.android.cart"
-        minSdkVersion 8
-        targetSdkVersion 17
+        minSdkVersion 13
+        targetSdkVersion 21
     }
 
     buildTypes {
@@ -42,8 +36,7 @@ android {
 }
 
 dependencies {
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.android.support:support-v4:19.0.0'
+    compile 'com.android.support:support-v4:21.0.0'
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 }

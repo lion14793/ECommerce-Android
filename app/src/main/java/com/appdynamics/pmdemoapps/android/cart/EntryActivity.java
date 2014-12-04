@@ -18,17 +18,11 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
 	    public void onCreate(Bundle savedInstanceState) 
 	    {
             super.onCreate(savedInstanceState);
-
-            Instrumentation.start("EUM-AAB-AUB",
-                    getApplicationContext(),
-                    "http://pm-demo.appdynamics.com",
-                    true);
-
 	        
 	      //See if the user credentials are already stored in the system
-			SharedPreferences settings = getSharedPreferences(Constants.COMMON_PREFS_FILE_NAME, 
-												Context.MODE_PRIVATE);
-		       String mUser = settings.getString("username",null);
+			SharedPreferences settings = getSharedPreferences(Constants.COMMON_PREFS_FILE_NAME,
+                    Context.MODE_PRIVATE);
+            String mUser = settings.getString("username",null);
 		       
 		       if (mUser==null || mUser.trim().equals("")){
 		    	   showLogin();

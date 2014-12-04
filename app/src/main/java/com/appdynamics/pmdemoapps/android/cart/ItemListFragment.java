@@ -7,13 +7,14 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
+import android.app.ListFragment;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
 import com.appdynamics.pmdemoapps.android.cart.adapter.ItemListAdapter;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
 import com.appdynamics.pmdemoapps.android.cart.model.Item;
@@ -35,7 +36,7 @@ import com.appdynamics.pmdemoapps.android.cart.service.http.GetRequestService;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ItemListFragment extends SherlockListFragment {
+public class ItemListFragment extends ListFragment {
 
     /**
      * The serialization (saved instance state) Bundle key representing the

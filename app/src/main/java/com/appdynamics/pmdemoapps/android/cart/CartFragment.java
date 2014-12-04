@@ -7,44 +7,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 import android.app.Activity;
+import android.app.ListFragment;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockListFragment;
 import com.appdynamics.eumagent.runtime.InfoPoint;
 import com.appdynamics.eumagent.runtime.Instrumentation;
-import com.appdynamics.pmdemoapps.android.cart.misc.Constants;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
 import com.appdynamics.pmdemoapps.android.cart.model.Item;
 import com.appdynamics.pmdemoapps.android.cart.service.http.DeleteRequestService;
 import com.appdynamics.pmdemoapps.android.cart.service.http.GetRequestService;
 
-public class CartFragment extends  SherlockListFragment {
+public class CartFragment extends ListFragment {
     private static final String TAG = CartFragment.class.getName();
 
 	public static List<Item> currentCartItems = new ArrayList<Item>();
@@ -228,7 +212,7 @@ public class CartFragment extends  SherlockListFragment {
     // TODO: Replace with Dialog/Intent. This will NPE if the user switches fragments
 	private void displayToast(CharSequence text){
         try {
-            Context context = this.getSherlockActivity();
+            Context context = this.getActivity();
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();

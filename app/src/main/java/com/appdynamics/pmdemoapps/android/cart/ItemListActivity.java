@@ -2,21 +2,12 @@ package com.appdynamics.pmdemoapps.android.cart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.util.Log;
-import android.util.SparseBooleanArray;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.appdynamics.eumagent.runtime.InfoPoint;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity;
 import com.appdynamics.pmdemoapps.android.cart.model.Item;
@@ -46,8 +37,8 @@ import java.util.ArrayList;
  * This activity also implements the required {@link ItemListFragment.Callbacks}
  * interface to listen for item selections.
  */
-public class ItemListActivity extends SherlockFragmentActivity implements
-		ItemListFragment.Callbacks, CartFragment.Callbacks {
+public class ItemListActivity extends FragmentActivity implements
+        ItemListFragment.Callbacks, CartFragment.Callbacks {
     private static final String TAG = ItemListActivity.class.getName();
 
 	/**
@@ -83,21 +74,21 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 			mTwoPane = true;
 
 			// In two-pane mode, list items should be given the 'activated' state when touched.
-			((ItemListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.item_list)).setActivateOnItemClick(true);
+            ((ItemListFragment) getFragmentManager().findFragmentById(
+                    R.id.item_list)).setActivateOnItemClick(true);
 		}
 		
 		//Create Tabs
-		final ActionBar actionBar = getSupportActionBar();
-		// Specify that tabs should be displayed in the action bar.
+        final ActionBar actionBar = getActionBar();
+        // Specify that tabs should be displayed in the action bar.
 	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    //actionBar.setDisplayShowTitleEnabled(false);
 	    
 	    actionBar.addTab(
-	        actionBar.newTab()
-	                 .setText("List")
-	                 .setTabListener(new CustomTabListener<ItemListFragment>(this, "List", ItemListFragment.class)));
-	    actionBar.addTab(
+                actionBar.newTab()
+                        .setText("List")
+                        .setTabListener(new CustomTabListener<ItemListFragment>(this, "List", ItemListFragment.class)));
+        actionBar.addTab(
 	        actionBar.newTab()
 	                 .setText("Cart")
 	                 .setTabListener(new CustomTabListener<CartFragment>(this, "Cart", CartFragment.class)));
@@ -106,8 +97,8 @@ public class ItemListActivity extends SherlockFragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		getSupportMenuInflater().inflate(R.menu.cart, menu);
-		return true;
+        getMenuInflater().inflate(R.menu.cart, menu);
+        return true;
 	}
 	
 	@Override

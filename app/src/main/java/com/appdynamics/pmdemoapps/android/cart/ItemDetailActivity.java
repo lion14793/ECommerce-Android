@@ -1,14 +1,13 @@
 package com.appdynamics.pmdemoapps.android.cart;
 
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.appdynamics.eumagent.runtime.InfoPoint;
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
 import com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity;
@@ -23,7 +22,7 @@ import com.appdynamics.pmdemoapps.android.cart.service.http.GetRequestService;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link ItemDetailFragment}.
  */
-public class ItemDetailActivity extends SherlockFragmentActivity {
+public class ItemDetailActivity extends FragmentActivity {
 
     @Override
     @InfoPoint
@@ -32,7 +31,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         setContentView(R.layout.activity_item_detail);
 
         // Show the Up button in the action bar.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -53,7 +52,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getSupportMenuInflater().inflate(R.menu.cart, menu);
+        getMenuInflater().inflate(R.menu.cart, menu);
         return true;
     }
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.appdynamics.pmdemoapps.android.cart.misc.GlobalDataProvider;
 import com.appdynamics.pmdemoapps.android.cart.model.Item;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
