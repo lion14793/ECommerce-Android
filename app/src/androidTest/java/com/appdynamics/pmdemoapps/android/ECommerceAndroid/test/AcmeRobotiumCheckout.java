@@ -34,7 +34,7 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
 
         assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity.class));
 
-        changeSettings();
+        //changeSettings();
 
         int noOfBooks = randInt(1,8);
         ArrayList<Integer> shuffled = shuffleItems(0,noOfBooks);
