@@ -87,7 +87,6 @@ public class UserLoginTask extends AsyncTask<String, Void, Boolean> {
 						}
 						// TODO: Future enhancements - register the new account here??
 						success = true;
-                        Instrumentation.leaveBreadcrumb("User logged in");
                         Log.d("ADInstrumentation", "success");
 						return true;
 					} else { 
