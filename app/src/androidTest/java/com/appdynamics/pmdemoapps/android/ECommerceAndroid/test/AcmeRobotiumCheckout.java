@@ -34,6 +34,8 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
 
         assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity.class));
 
+        changeSettings();
+
         int noOfBooks = randInt(1,8);
         ArrayList<Integer> shuffled = shuffleItems(0,noOfBooks);
         for (int i = 0; i < noOfBooks; i++) {
@@ -76,6 +78,22 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
         assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemDetailActivity.class));
         solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.oops_button));
         assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity.class));
+    }
+
+    private void changeSettings() {
+        solo.clickOnView(solo.getView(android.widget.ImageButton.class, 0));
+        solo.clickOnActionBarItem(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.action_settings);
+        assertTrue("com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity.class));
+        solo.clickInList(1, 0);
+        solo.waitForDialogToOpen(5000);
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        solo.clickInList(2, 0);
+        solo.waitForDialogToOpen(5000);
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        solo.clickInList(3, 0);
+        solo.waitForDialogToOpen(5000);
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        solo.goBack();
     }
 
     private static int randInt(int min, int max) {
