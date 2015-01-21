@@ -1,7 +1,12 @@
 package com.appdynamics.pmdemoapps.android.ECommerceAndroid.test;
 
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.EntryActivity;
+import com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemDetailActivity;
+import com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity;
+import com.appdynamics.pmdemoapps.android.ECommerceAndroid.LoginActivity;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.R;
+import com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity;
+
 import com.robotium.solo.*;
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -12,6 +17,10 @@ import java.util.Random;
 
 public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<EntryActivity> {
   	private Solo solo;
+
+    private static final String APP_URL = "http://54.203.82.235/appdynamicspilot/";
+    private static final String EUM_KEY = "DEMO-AAB-AUM";
+    private static final String EUM_URL = "http://54.244.95.83:9001";
 
   	public AcmeRobotiumCheckout() {
 		super(EntryActivity.class);
@@ -30,19 +39,19 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
   	}
 
     public void testRun() {
-        doLogin();
-
-        assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity.class));
-
         //changeSettings();
+
+        doLogin();
+        assertTrue("ItemListActivity not found", solo.waitForActivity(ItemListActivity.class));
 
         int noOfBooks = randInt(1,8);
         ArrayList<Integer> shuffled = shuffleItems(0,noOfBooks);
         for (int i = 0; i < noOfBooks; i++) {
             doAddBook(shuffled.get(i));
         }
-
         doCheckout();
+
+        //doLogout();
     }
 
     private ArrayList<Integer> shuffleItems(int min, int max) {
@@ -55,14 +64,14 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
     }
 
     private void doLogin () {
-        solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.EntryActivity.class, 2000);
+        solo.waitForActivity(EntryActivity.class, 2000);
         Timeout.setSmallTimeout(101011);
-        solo.clearEditText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.username));
-        solo.enterText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.username), "test");
+        solo.clearEditText((android.widget.EditText) solo.getView(R.id.username));
+        solo.enterText((android.widget.EditText) solo.getView(R.id.username), "test");
 
-        solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.password));
-        solo.clearEditText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.password));
-        solo.enterText((android.widget.EditText) solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.password), "appdynamics");
+        solo.clickOnView(solo.getView(R.id.password));
+        solo.clearEditText((android.widget.EditText) solo.getView(R.id.password));
+        solo.enterText((android.widget.EditText) solo.getView(R.id.password), "appdynamics");
 
         solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.sign_in_button));
     }
@@ -75,34 +84,40 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
 
     private void doAddBook (int book) {
         solo.clickInList(book, 0);
-        assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemDetailActivity.class));
-        solo.clickOnView(solo.getView(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.oops_button));
-        assertTrue("com.appdynamics.pmdemoapps.android.cart.ItemListActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity.class));
+        assertTrue("ItemDetailActivity not found", solo.waitForActivity(ItemDetailActivity.class));
+        solo.clickOnView(solo.getView(R.id.add_to_cart_button));
+        assertTrue("ItemListActivity not found", solo.waitForActivity(ItemListActivity.class));
     }
 
     private void changeSettings() {
         solo.clickOnView(solo.getView(android.widget.ImageButton.class, 0));
-        solo.clickOnActionBarItem(com.appdynamics.pmdemoapps.android.ECommerceAndroid.R.id.action_settings);
-        assertTrue("com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity.class));
+        solo.clickOnActionBarItem(R.id.action_settings);
+        assertTrue("UserPrefActivity not found!", solo.waitForActivity(UserPrefActivity.class));
         solo.clickInList(1, 0);
         solo.waitForDialogToOpen(5000);
 
         solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
-        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://ec2-54-90-14-200.compute-1.amazonaws.com/appdynamicspilot/");
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), APP_URL);
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.clickInList(2, 0);
         solo.waitForDialogToOpen(5000);
 
         solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
-        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "pm-cloud-AAB-AUN");
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), EUM_KEY);
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.clickInList(3, 0);
         solo.waitForDialogToOpen(5000);
 
         solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
-        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://ec2-54-202-222-83.us-west-2.compute.amazonaws.com");
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), EUM_URL);
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.goBack();
+    }
+
+    private void doLogout() {
+        solo.clickOnView(solo.getView(android.widget.ImageButton.class, 0));
+        solo.clickOnActionBarItem(R.id.action_logout);
+        assertTrue("LoginActivity not found", solo.waitForActivity(LoginActivity.class));
     }
 
     private static int randInt(int min, int max) {
