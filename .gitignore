@@ -35,3 +35,7 @@ build/
 # Android Lint
 lint-results.xml
 
+# Miscellaneous
+*.hprof
+AndroidAgent/
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.appdynamics.pmdemoapps.android.cart"
+    package="com.appdynamics.pmdemoapps.android.ECommerceAndroid"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -12,13 +12,13 @@
 
     <application
         android:allowBackup="true"
-        android:name="com.appdynamics.pmdemoapps.android.cart.CustomApplication"
+        android:name="com.appdynamics.pmdemoapps.android.ECommerceAndroid.CustomApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
         <activity
-	        android:name="com.appdynamics.pmdemoapps.android.cart.EntryActivity"
+	        android:name="com.appdynamics.pmdemoapps.android.ECommerceAndroid.EntryActivity"
 	        android:launchMode="singleInstance"
 	        android:noHistory="true" >
 	        <intent-filter>
@@ -28,28 +28,28 @@
     	</activity>
         
         <activity
-            android:name="com.appdynamics.pmdemoapps.android.cart.ItemListActivity"
+            android:name="com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity"
             android:label="@string/app_name"
             android:configChanges="orientation|screenSize"></activity>
 
         <activity
-            android:name="com.appdynamics.pmdemoapps.android.cart.ItemDetailActivity"
+            android:name="com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity"
+            android:parentActivityName="com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity"
             android:configChanges="orientation|screenSize">
         <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ItemListActivity" />
+                android:value="com.appdynamics.pmdemoapps.android.ECommerceAndroid.ItemListActivity" />
         </activity>
 
         <activity
-            android:name="com.appdynamics.pmdemoapps.android.cart.LoginActivity"
+            android:name="com.appdynamics.pmdemoapps.android.ECommerceAndroid.LoginActivity"
             android:label="@string/title_activity_login"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
 
-        <activity android:name="com.appdynamics.pmdemoapps.android.cart.misc.UserPrefActivity"
+        <activity android:name="com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity"
             android:label="@string/title_activity_login"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize|stateVisible" >            

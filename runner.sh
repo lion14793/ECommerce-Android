@@ -1,5 +1,19 @@
 #!/bin/bash
-for i in 1 2 3 4 5 6 7 8 9 10
-do
-  cd app; gradle connectedCheck
+
+declare -a targets
+
+targets=(
+"demo1"
+"demo2"
+"demo3"
+"pm-demo"
+"pm2"
+)
+
+while true; do
+	for i in ${targets[@]}; do
+		echo "Target environment: ${i}"
+		cp PreferenceConstants.${i} app/src/main/java/com/appdynamics/pmdemoapps/android/ECommerceAndroid/misc/PreferenceConstants.java 
+		./WakeUpAndRun.sh
+	done
 done
