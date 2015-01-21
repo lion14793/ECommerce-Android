@@ -86,12 +86,21 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
         assertTrue("com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity is not found!", solo.waitForActivity(com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity.class));
         solo.clickInList(1, 0);
         solo.waitForDialogToOpen(5000);
+
+        solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://54.203.82.235/appdynamicspilot/");
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.clickInList(2, 0);
         solo.waitForDialogToOpen(5000);
+
+        solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "DEMO-AAB-AUM");
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.clickInList(3, 0);
         solo.waitForDialogToOpen(5000);
+
+        solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://54.244.95.83:9001");
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.goBack();
     }
