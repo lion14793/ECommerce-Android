@@ -25,7 +25,6 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
             String mUser = settings.getString("username",null);
 
 		       if (mUser==null || mUser.trim().equals("")) {
-                   Instrumentation.leaveBreadcrumb("Showing login screen");
 		    	   showLogin();
 		       } else {
 		    	  UserLoginTask task = new UserLoginTask(this);
@@ -36,9 +35,11 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
 	    }
 
 	private void showLogin() {
+        Instrumentation.leaveBreadcrumb("Show login screen");
+
 		//Go to Login screen if the user has not been registered previously		
-		   Intent listIntent = new Intent(this, LoginActivity.class);
-		   startActivity(listIntent);
+		Intent listIntent = new Intent(this, LoginActivity.class);
+		startActivity(listIntent);
 	}
 
 	@Override
@@ -58,8 +59,9 @@ public class EntryActivity extends  Activity implements AsyncTaskListener {
 	}
 
 	private void showBookList() {
+        Instrumentation.leaveBreadcrumb("Show book list");
 		Intent loginIntent = new Intent(this, ItemListActivity.class);
-		   startActivity(loginIntent);
+		startActivity(loginIntent);
 	}
 
 }

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.appdynamics.eumagent.runtime.InfoPoint;
+import com.appdynamics.eumagent.runtime.Instrumentation;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.model.Item;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.tabs.CustomTabListener;
@@ -143,13 +144,19 @@ public class ItemListActivity extends FragmentActivity implements
 	}
 
     // Delete items and update cart
-	public void deleteFromCartAction(View view){ currentCartFragment.removeItemFromCart(); }
+	public void deleteFromCartAction(View view){
+        Instrumentation.leaveBreadcrumb("Delete from cart");
+        currentCartFragment.removeItemFromCart();
+    }
 
     // Checkout and update cart
 	public void checkoutCartAction(View view){ 
-			currentCartFragment.checkoutCart();
+	    Instrumentation.leaveBreadcrumb("Checkout");
+        currentCartFragment.checkoutCart();
 	}
 
     // Crash the app!
-    public void crashAction(View view) { currentCartFragment.crashMe(); }
+    public void crashAction(View view) {
+        currentCartFragment.crashMe();
+    }
 }

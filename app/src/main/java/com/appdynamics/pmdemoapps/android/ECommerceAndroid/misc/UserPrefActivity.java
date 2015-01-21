@@ -10,9 +10,7 @@ public class UserPrefActivity extends PreferenceActivity {
 	public static final String KEY_PREF_SERVER_ENDPOINT = "pref_rest_uri";
 	public static final String EUM_APP_KEY = "pref_eum_app_key";
 	public static final String EUM_COLLECTOR_URL = "pref_eum_collector_url";
-	
-	
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

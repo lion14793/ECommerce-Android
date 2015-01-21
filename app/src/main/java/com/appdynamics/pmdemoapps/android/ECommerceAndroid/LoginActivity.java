@@ -120,6 +120,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 		}
 
         Instrumentation.startTimer("Login");
+
 		// Reset errors.
 		mUserView.setError(null);
 		mPasswordView.setError(null);
@@ -225,9 +226,9 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 	}
 
 	private void openSettingsPage() {
+        Instrumentation.leaveBreadcrumb("Open Settings");
 		Intent detailIntent = new Intent(this, UserPrefActivity.class);
 		startActivity(detailIntent);
-		
 	}
 
 	
@@ -248,6 +249,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 		showProgress(false);
         Instrumentation.stopTimer("Login");
 		if (success) {
+            Instrumentation.leaveBreadcrumb("Login successful");
 			//Save the username/password in settings
 			SharedPreferences settings = getSharedPreferences(Constants.COMMON_PREFS_FILE_NAME, 0);
 		    SharedPreferences.Editor editor = settings.edit();
@@ -259,6 +261,7 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 			navigateToHomePage();
 			return;
 		} else {
+            Instrumentation.leaveBreadcrumb("Login failed");
 			if(exceptionOccurred){
 				displayToast(exceptionMessage);
 			}else{

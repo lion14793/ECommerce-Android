@@ -78,25 +78,24 @@ public class CustomApplication extends Application {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		SharedPreferences.Editor editor = sharedPref.edit();
-		String server_url = PreferenceConstants.END_PONT_URL;
+		String server_url = PreferenceConstants.END_POINT_URL;
 		String eumAppKey = PreferenceConstants.EUM_APP_KEY;
 		String collectorUrl = PreferenceConstants.EUM_COLLECTOR_URL;
 		
 		String image_url = server_url;
 		editor. putString(UserPrefActivity.KEY_PREF_SERVER_ENDPOINT,server_url);
-		
 		editor. putString(UserPrefActivity.EUM_COLLECTOR_URL, collectorUrl);
-		
 		editor.putString(UserPrefActivity.EUM_APP_KEY, eumAppKey);
 		editor.commit();
 		
 		if (server_url.endsWith("/")){
 			server_url = server_url+"rest/";
 		}
-		else{
+		else {
 			server_url = server_url+"/rest/";
 			image_url = image_url+"/";
 		}
+
 		GlobalDataProvider.getInstance().setCollectorUrl(collectorUrl);
 		GlobalDataProvider.getInstance().setEumAppKey(eumAppKey);
 		GlobalDataProvider.getInstance().setRestServiceUrl(server_url);

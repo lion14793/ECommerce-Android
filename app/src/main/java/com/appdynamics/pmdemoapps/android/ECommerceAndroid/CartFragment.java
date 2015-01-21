@@ -223,7 +223,6 @@ public class CartFragment extends ListFragment {
         Log.d(TAG, "checkoutCart(): currentCartItems size = " + currentCartItems.size());
 		if (currentCartItems!=null && currentCartItems.size()>0){
 			CheckoutTask checkoutReq = new CheckoutTask();
-            Instrumentation.leaveBreadcrumb("Checkout Cart");
             Instrumentation.reportMetric("CartSize", currentCartItems.size());
             Instrumentation.startTimer("Checkout");
 			checkoutReq.execute(getEndpoint() + "cart/co");
