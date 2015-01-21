@@ -88,18 +88,6 @@ public class LoginActivity extends Activity implements AsyncTaskListener {
 						attemptLogin();
 					}
 				});
-		findViewById(R.id.oops_button).setOnClickListener(
-                new View.OnClickListener() {
-					@Override
-                    public void onClick(View v) {
-				        crashMe();
-			}
-		});
-	}
-	
-	private void crashMe() {
-		String foo = null;
-		boolean broken = foo.equals("badcode");
 	}
 
 	@Override
