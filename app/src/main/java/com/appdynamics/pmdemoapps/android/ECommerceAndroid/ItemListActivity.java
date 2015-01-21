@@ -1,6 +1,7 @@
 package com.appdynamics.pmdemoapps.android.ECommerceAndroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 
 import com.appdynamics.eumagent.runtime.InfoPoint;
 import com.appdynamics.eumagent.runtime.Instrumentation;
+import com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.Constants;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.model.Item;
 import com.appdynamics.pmdemoapps.android.ECommerceAndroid.tabs.CustomTabListener;
@@ -107,6 +109,9 @@ public class ItemListActivity extends FragmentActivity implements
 	        case R.id.action_settings:
 	            openSettingsPage();
 	            return true;
+            case R.id.action_logout:
+                logoutUser();
+                return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -116,6 +121,17 @@ public class ItemListActivity extends FragmentActivity implements
 		Intent detailIntent = new Intent(this, UserPrefActivity.class);
 		startActivity(detailIntent);
 	}
+
+    private void logoutUser() {
+        SharedPreferences settings = getSharedPreferences(Constants.COMMON_PREFS_FILE_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.remove(Constants.COMMON_PREFS_USERNAME);
+        editor.remove(Constants.COMMON_PREFS_PASSWORD);
+        editor.commit();
+
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
+    }
 
 	/**
 	 * Callback method from {@link ItemListFragment.Callbacks} indicating that

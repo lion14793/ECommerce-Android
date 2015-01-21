@@ -88,19 +88,19 @@ public class AcmeRobotiumCheckout extends ActivityInstrumentationTestCase2<Entry
         solo.waitForDialogToOpen(5000);
 
         solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
-        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://54.203.82.235/appdynamicspilot/");
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://ec2-54-90-14-200.compute-1.amazonaws.com/appdynamicspilot/");
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.clickInList(2, 0);
         solo.waitForDialogToOpen(5000);
 
         solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
-        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "DEMO-AAB-AUM");
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "pm-cloud-AAB-AUN");
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.clickInList(3, 0);
         solo.waitForDialogToOpen(5000);
 
         solo.clearEditText((android.widget.EditText) solo.getView(android.R.id.edit));
-        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://54.244.95.83:9001");
+        solo.enterText((android.widget.EditText) solo.getView(android.R.id.edit), "http://ec2-54-202-222-83.us-west-2.compute.amazonaws.com");
         solo.clickOnView(solo.getView(android.R.id.button1));
         solo.goBack();
     }

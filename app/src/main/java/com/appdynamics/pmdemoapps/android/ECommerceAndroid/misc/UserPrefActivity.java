@@ -16,8 +16,4 @@ public class UserPrefActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);//Providing support for pre 3.0 devices, hence the deprecated method
 	}
-    
-    
-	
-	
 }

@@ -1,4 +1,1 @@
 include ':app'
-
-
-include ':CustomApplicationTest'

@@ -31,7 +31,6 @@ import com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc.UserPrefActivity
  * well.
  */
 public class LoginActivity extends Activity implements AsyncTaskListener {
-	
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
