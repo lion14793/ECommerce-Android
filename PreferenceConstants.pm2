@@ -1,0 +1,7 @@
+package com.appdynamics.pmdemoapps.android.ECommerceAndroid.misc;
+
+public final class PreferenceConstants {
+    public final static String END_POINT_URL = "http://ec2-54-167-95-227.compute-1.amazonaws.com/appdynamicspilot/";
+    public static final String EUM_APP_KEY = "pm-cloud-AAB-AUZ";
+    public static final String EUM_COLLECTOR_URL = "http://ec2-54-202-222-83.us-west-2.compute.amazonaws.com";
+}
