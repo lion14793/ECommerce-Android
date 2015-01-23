@@ -22,7 +22,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.appdynamics.pmdemoapps.android.eCommerceAndroid"
+        applicationId "com.appdynamics.pmdemoapps.android.cart"
         minSdkVersion 13
         targetSdkVersion 21
     }
